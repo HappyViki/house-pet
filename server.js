@@ -62,8 +62,8 @@ let requestHandler = (request, response) => {
       content += `<h3>${animal.name}, The ${animal.type}</h3>`
       content += `<img src="${animal.photos[0].medium}" width=300 height=300/>`
       content += `<p>${animal.distance} miles away</p>`
-      content += `<button onclick="boop()">Save</button>`
-      content += `<button>Next</button>`
+      content += `<button onclick="boop()">Boop</button>`
+      content += `<button onclick="next()">Next</button>`
       return content
     }
 
@@ -76,8 +76,37 @@ let requestHandler = (request, response) => {
     response.write('<!DOCTYPE html>');
     response.write('<html>');
     response.write('<body>');
-    response.write(petshtml);
-    response.write('<script>const boop = () => alert("boop")</script>');
+    response.write('<div id="app">'+petshtml+'</div>');
+    response.write(`<script>
+      let petId = 1
+      const pets = ${JSON.stringify(pets)}
+      const boop = () => alert("boop")
+      const next = () => {
+        petId++
+        if (!pets[petId]){
+          petId = 0
+        }
+        document.getElementById("app").innerHTML = formatAnimalInfo(pets[petId])
+      }
+
+      const formatAnimalInfo = (animal)=>{
+        let content = ''
+        let photo = animal.photos
+
+        if (photo.length) {
+          photo = animal.photos[0].medium
+        } else {
+          photo = ''
+        }
+
+        content += \`<h3>\${animal.name}, The \${animal.type}</h3>\`
+        content += \`<img src="\${photo}" width=300 height=300/>\`
+        content += \`<p>\${animal.distance} miles away</p>\`
+        content += \`<button onclick="boop()">Boop</button>\`
+        content += \`<button onclick="next()">Next</button>\`
+        return content
+      }
+      </script>`);
     response.write('</body>');
     response.write('</html>');
   } else {
