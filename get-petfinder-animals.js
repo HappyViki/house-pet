@@ -1,7 +1,7 @@
 const https = require('https')
 
-function getPetFinderAnimals(token, location='utah') {
-  console.log("OLD Petfinder token used");
+function getPetFinderAnimals(token, getPets, location='utah') {
+  console.log("TOKEN USED");
 
   const processAnimalData = (data) => {
     let json = JSON.parse(data)
@@ -14,6 +14,8 @@ function getPetFinderAnimals(token, location='utah') {
     }
 
     console.log(`Got ${pets.length} animals!`);
+
+    return getPets(pets)
   }
 
   const headers = {
@@ -27,7 +29,7 @@ function getPetFinderAnimals(token, location='utah') {
   };
 
   const callback = (response) => {
-    console.log('STATUS getPetFinderAnimals:', response.statusCode);
+    console.log('STATUS ANIMALS:', response.statusCode);
 
     let jsonString = ''
 
@@ -41,7 +43,7 @@ function getPetFinderAnimals(token, location='utah') {
   }
 
   const errorHandler = (error) => {
-    console.error("ERROR requestPetFinderAnimals:",error)
+    console.error("ERROR ANIMALS:",error)
   }
 
   const requestPetFinderAnimals = https.request(headers, callback);

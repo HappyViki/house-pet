@@ -8,12 +8,18 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 let token
 let pets
 
-getPetFinderToken()
+const updatePetfinderToken = (newToken) => {
+  token = newToken
+}
+
+getPetFinderToken(updatePetfinderToken)
 
 let requestHandler = (request, response) => {
-
-  //getPetFinderAnimals(token, location), location: city, state; latitude,longitude; or postal code.
-  getPetFinderAnimals(token)
+  //getPetFinderAnimals(token, updatePets, location), location: city, state; latitude,longitude; or postal code.
+  const updatePets = (newPets) => {
+    pets = newPets
+  }
+  getPetFinderAnimals(token,updatePets)
 
   let petshtml = ''
 

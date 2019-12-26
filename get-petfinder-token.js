@@ -1,6 +1,6 @@
 const https = require('https')
 
-function getPetFinderToken() {
+function getPetFinderToken(getToken) {
   let clientId = process.env.clientId
   let clientSecret = process.env.clientSecret
 
@@ -19,11 +19,12 @@ function getPetFinderToken() {
 
   const storeToken = (jsonString) => {
     token = JSON.parse(jsonString)['access_token'];
-    console.log("NEW Petfinder token used",typeof(token),token);
+    console.log("NEW TOKEN");
+    return getToken(token)
   }
 
   const callback = (response) => {
-    console.log("STATUS requestToken:",response.statusCode)
+    console.log("STATUS TOKEN:",response.statusCode)
 
     let jsonString = ''
 
@@ -37,7 +38,7 @@ function getPetFinderToken() {
   }
 
   const errorHandler = (error) => {
-    console.error("ERROR requestToken:",error)
+    console.error("ERROR TOKEN:",error)
   }
 
   const requestToken = https.request(headers, callback)
