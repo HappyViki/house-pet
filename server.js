@@ -13,7 +13,6 @@ const getPetFinderAnimals = require('./get-petfinder-animals.js')
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
 let token, pets
-let nextPet = 0
 
 if (testing) {
   fs.readFile(testFileName, 'utf8', function(error, contents) {
@@ -23,20 +22,8 @@ if (testing) {
 
     let json = JSON.parse(contents)
 
-    const formatAnimalInfo = (animal)=>{
-      let content = ''
-      let photo = animal.photos[0] ? animal.photos[0].medium : ''
-
-      content += `<h3>${animal.name}, The ${animal.type}</h3>`
-      content += `<img src="${photo}" width=300 height=300/>`
-      content += `<p>${animal.distance} miles away</p>`
-      content += `<button>No</button>`
-      content += `<a href="${animal.url}"><button>Yes</button></a>`
-      return content
-    }
-
     if (json.animals) {
-      pets = json.animals.map(formatAnimalInfo)
+      pets = json.animals
     }
 
     console.log("TEST JSON file has been read from " + testFileName);
@@ -69,16 +56,28 @@ let requestHandler = (request, response) => {
       getPetFinderAnimals(token,updatePets)
     }
 
+    const formatAnimalInfo = (animal)=>{
+      let content = ''
+
+      content += `<h3>${animal.name}, The ${animal.type}</h3>`
+      content += `<img src="${animal.photos[0].medium}" width=300 height=300/>`
+      content += `<p>${animal.distance} miles away</p>`
+      content += `<button onclick="boop()">Save</button>`
+      content += `<button>Next</button>`
+      return content
+    }
+
     let petshtml = ''
 
     if (pets) {
-      petshtml = pets[nextPet]
+      petshtml = formatAnimalInfo(pets[1])
     }
 
     response.write('<!DOCTYPE html>');
     response.write('<html>');
     response.write('<body>');
     response.write(petshtml);
+    response.write('<script>const boop = () => alert("boop")</script>');
     response.write('</body>');
     response.write('</html>');
   } else {
