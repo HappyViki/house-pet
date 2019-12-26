@@ -13,6 +13,7 @@ const getPetFinderAnimals = require('./get-petfinder-animals.js')
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
 let token, pets
+let nextPet = 0
 
 if (testing) {
   fs.readFile(testFileName, 'utf8', function(error, contents) {
@@ -22,12 +23,20 @@ if (testing) {
 
     let json = JSON.parse(contents)
 
-    const getAnimalInfo = (animal)=>{
-      return [animal.name, animal.type, animal.url, animal.distance]
+    const formatAnimalInfo = (animal)=>{
+      let content = ''
+      let photo = animal.photos[0] ? animal.photos[0].medium : ''
+
+      content += `<h3>${animal.name}, The ${animal.type}</h3>`
+      content += `<img src="${photo}" width=300 height=300/>`
+      content += `<p>${animal.distance} miles away</p>`
+      content += `<button>No</button>`
+      content += `<a href="${animal.url}"><button>Yes</button></a>`
+      return content
     }
 
     if (json.animals) {
-      pets = json.animals.map(getAnimalInfo)
+      pets = json.animals.map(formatAnimalInfo)
     }
 
     console.log("TEST JSON file has been read from " + testFileName);
@@ -62,12 +71,8 @@ let requestHandler = (request, response) => {
 
     let petshtml = ''
 
-    const formatAnimalArray = (pet) => {
-      return `<a href="${pet[2]}">${pet[0]} is a ${pet[1]}, and is ${pet[3]} miles away</a><br/>`
-    }
-
     if (pets) {
-      petshtml = pets.map(formatAnimalArray).join('')
+      petshtml = pets[nextPet]
     }
 
     response.write('<!DOCTYPE html>');
