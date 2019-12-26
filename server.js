@@ -5,14 +5,16 @@ const getPetFinderToken = require('./get-petfinder-token.js')
 const getPetFinderAnimals = require('./get-petfinder-animals.js')
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
-let token
-let pets
+let token, pets
+
+let aboutAnHourLong = (60*60*1000) - 10000
 
 const updatePetfinderToken = (newToken) => {
   token = newToken
 }
 
 getPetFinderToken(updatePetfinderToken)
+setInterval( getPetFinderToken, aboutAnHourLong, updatePetfinderToken )
 
 let requestHandler = (request, response) => {
 
@@ -46,8 +48,6 @@ let requestHandler = (request, response) => {
   }
   response.end();
 }
-
-//setTimeout(getPetFinderToken, (60*60*1000) - 10000)
 
 const server = http.createServer(requestHandler);
 server.listen(8080)

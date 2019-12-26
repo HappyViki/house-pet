@@ -1,10 +1,26 @@
+// Configure for testing
+const testWriteToFile = false
+const testFileName = "testpets.json"
+
 const https = require('https')
+const fs = require('fs');
 
 function getPetFinderAnimals(token, getPets, location='utah') {
   console.log("TOKEN USED");
 
   const processAnimalData = (data) => {
+    if (testWriteToFile) {
+      fs.writeFile(testFileName, data, 'utf8', function (error) {
+        if (error) {
+          return console.log("TEST ERROR fs.writeFile:",error);
+        }
+
+        console.log("TEST JSON file has been saved to " + testFileName);
+      });
+    }
+
     let json = JSON.parse(data)
+
     const getAnimalInfo = (animal)=>{
       return [animal.name, animal.type, animal.url, animal.distance]
     }
