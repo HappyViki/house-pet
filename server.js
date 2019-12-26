@@ -15,28 +15,35 @@ const updatePetfinderToken = (newToken) => {
 getPetFinderToken(updatePetfinderToken)
 
 let requestHandler = (request, response) => {
-  //getPetFinderAnimals(token, updatePets, location), location: city, state; latitude,longitude; or postal code.
-  const updatePets = (newPets) => {
-    pets = newPets
+
+  if (request.url === "/favicon.ico") {
+    response.statusCode = 204
+  } else if (request.url === "/")  {
+    //getPetFinderAnimals(token, updatePets, location), location: city, state; latitude,longitude; or postal code.
+    const updatePets = (newPets) => {
+      pets = newPets
+    }
+    getPetFinderAnimals(token,updatePets)
+
+    let petshtml = ''
+
+    const formatAnimalArray = (pet) => {
+      return `<a href="${pet[2]}">${pet[0]} is a ${pet[1]}, and is ${pet[3]} miles away</a><br/>`
+    }
+
+    if (pets) {
+      petshtml = pets.map(formatAnimalArray).join('')
+    }
+
+    response.write('<!DOCTYPE html>');
+    response.write('<html>');
+    response.write('<body>');
+    response.write(petshtml);
+    response.write('</body>');
+    response.write('</html>');
+  } else {
+    console.log("FIX new request source found:",request.url);
   }
-  getPetFinderAnimals(token,updatePets)
-
-  let petshtml = ''
-
-  const formatAnimalArray = (pet) => {
-    return `<a href="${pet[2]}">${pet[0]} is a ${pet[1]}, and is ${pet[3]} miles away</a><br/>`
-  }
-
-  if (pets) {
-    petshtml = pets.map(formatAnimalArray).join('')
-  }
-
-  response.write('<!DOCTYPE html>');
-  response.write('<html>');
-  response.write('<body>');
-  response.write(petshtml);
-  response.write('</body>');
-  response.write('</html>');
   response.end();
 }
 
