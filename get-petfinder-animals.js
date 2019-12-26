@@ -1,7 +1,3 @@
-// Configure for testing
-const testWriteToFile = false
-const testFileName = "testpets.json"
-
 const https = require('https')
 const fs = require('fs');
 
