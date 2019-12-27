@@ -10,6 +10,7 @@ const http = require('http')
 const fs = require('fs');
 const getPetFinderToken = require('./get-petfinder-token.js')
 const getPetFinderAnimals = require('./get-petfinder-animals.js')
+const queries = require('./queries.js')
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
 
 let token, pets
@@ -55,6 +56,8 @@ let requestHandler = (request, response) => {
 
       getPetFinderAnimals(token,updatePets)
     }
+
+    queries.databaseUpdate()
 
     const formatAnimalInfo = (animal)=>{
       let content = ''
@@ -117,4 +120,4 @@ let requestHandler = (request, response) => {
 
 const server = http.createServer(requestHandler);
 server.listen(8080)
-console.log("Are you listening? ", server.listening);
+console.log("Are you listening?", server.listening, ", go to http://localhost:8080/");
