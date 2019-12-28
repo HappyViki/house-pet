@@ -1,7 +1,8 @@
-const JsonDB = require('node-json-db').JsonDB;
-const Config = require('node-json-db/dist/lib/JsonDBConfig').Config;
+const JsonDB = require('node-json-db').JsonDB
+const Config = require('node-json-db/dist/lib/JsonDBConfig').Config
+let db
 
-module.exports.db = new JsonDB(new Config("database-mock", true, false, '/'));
+module.exports.db = new JsonDB(new Config('database-mock', true, false, '/'))
 
 // have 2 users
 
@@ -14,25 +15,25 @@ module.exports.db = new JsonDB(new Config("database-mock", true, false, '/'));
 // }
 
 module.exports.boop = function (petfinderId, userId) {
-  db.push("/users/userId/pets", [{
+  db.push('/users/userId/pets', [{
     petfinderid: petfinderId, // id of pet from petfinder
-    userid: userId, // id of user from user table, index key
-  }], false);
-  console.log("BOOP",db.getData("/users/userId/pets[-1]"))
+    userid: userId // id of user from user table, index key
+  }], false)
+  console.log('BOOP', db.getData('/users/userId/pets[-1]'))
 }
 
 // Function getBoops(userId)
 // Description: get array of objects containing pets
 
 module.exports.getBoops = function (userId) {
-  console.log("BOOPS",db.getData(`/users/userId/pets`))
-  return db.getData(`/users/userId/pets`)
+  console.log('BOOPS', db.getData('/users/userId/pets'))
+  return db.getData('/users/userId/pets')
 }
 
 // Function unboop(petId, userId)
 // Description: delete selected pet
 
 module.exports.unboop = function (petId, userId) {
-  console.log("UNBOOP",db.getData(`/users/userId/pets[${petId}]`))
-  db.delete(`/users/userId/pets[${petId}]`);
+  console.log('UNBOOP', db.getData(`/users/userId/pets[${petId}]`))
+  db.delete(`/users/userId/pets[${petId}]`)
 }
