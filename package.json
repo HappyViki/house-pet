@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "testdbboop": "node -e 'q=require(`./queries.js`);db=q.db;q.boop(2, 2)'",
+    "testdbgetBoops": "node -e 'q=require(`./queries.js`);db=q.db;q.getBoops(2)'",
+    "testdbunboop": "node -e 'q=require(`./queries.js`);db=q.db;q.unboop(1, 2)'"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "node-json-db": "^1.0.3"
   }
 }

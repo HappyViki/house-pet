@@ -57,8 +57,6 @@ let requestHandler = (request, response) => {
       getPetFinderAnimals(token,updatePets)
     }
 
-    queries.databaseUpdate()
-
     const formatAnimalInfo = (animal)=>{
       let content = ''
 
