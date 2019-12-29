@@ -8,7 +8,7 @@ function getPetFinderAnimals (token, getPets, location = 'utah') {
     let newPets
 
     const getAnimalInfo = (animal) => {
-      return {name: animal.name, type: animal.type, url: animal.url, distance: animal.distance}
+      return {id: animal.id, name: animal.name, type: animal.type, url: animal.url, distance: animal.distance}
     }
 
     if (json.animals) {
