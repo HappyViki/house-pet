@@ -8,14 +8,15 @@ function getPetFinderAnimals (token, getPets, location = 'utah') {
     let newPets
 
     const getAnimalInfo = (animal) => {
-      return [animal.name, animal.type, animal.url, animal.distance]
+      return {name: animal.name, type: animal.type, url: animal.url, distance: animal.distance}
     }
 
     if (json.animals) {
       newPets = json.animals.map(getAnimalInfo)
+      console.log(`Got ${newPets.length} animals!`)
+    } else {
+      console.error('No pets found, check the token getter')
     }
-
-    console.log(`Got ${newPets.length} animals!`)
 
     return getPets(newPets)
   }

@@ -1,4 +1,5 @@
 const https = require('https')
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 
 function getPetFinderToken (getToken) {
   const clientId = process.env.clientId
