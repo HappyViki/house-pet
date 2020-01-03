@@ -4,8 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "jsx-start": "npx babel src --out-dir client --presets react-app/prod && node server.js",
-    "jsx": "npx babel --watch src --out-dir client --presets react-app/prod",
+    "jsx-start": "npx babel src --out-dir public --presets react-app/prod && node server.js",
+    "jsx": "npx babel --watch src --out-dir public --presets react-app/prod",
     "test": "standard --fix"
   },
   "author": "",

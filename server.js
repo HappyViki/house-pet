@@ -27,8 +27,8 @@ app.get('/dashboard', (request, response) => {
 app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
 })
-app.get('/home.js', (request, response) => {
-  response.sendFile('home.js', {root: 'client' })
+app.get('/index.js', (request, response) => {
+  response.sendFile('index.js', {root: 'client' })
 })
 app.get('/dashboard.js', (request, response) => {
   response.sendFile('dashboard.js', {root: 'client' })
