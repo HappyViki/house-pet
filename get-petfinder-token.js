@@ -1,52 +1,25 @@
-const https = require('https')
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+const axios = require('axios')
 
 function getPetFinderToken (getToken) {
   const clientId = process.env.clientId
   const clientSecret = process.env.clientSecret
-  let token
 
-  const credentials = JSON.stringify({
+  const tokenUrl = 'https://api.petfinder.com/v2/oauth2/token'
+  const tokenConfig = {
     grant_type: 'client_credentials',
     client_id: clientId,
     client_secret: clientSecret
+  }
+
+  axios.post(tokenUrl, tokenConfig)
+  .then(function (response) {
+    let newToken = response.data.access_token
+    getToken(newToken)
+    console.log('NEW TOKEN', response.status)
   })
-
-  const headers = {
-    hostname: 'api.petfinder.com',
-    port: 443,
-    path: '/v2/oauth2/token',
-    method: 'POST'
-  }
-
-  const storeToken = (jsonString) => {
-    token = JSON.parse(jsonString).access_token
-    console.log('NEW TOKEN')
-    return getToken(token)
-  }
-
-  const callback = (response) => {
-    console.log('STATUS TOKEN:', response.statusCode)
-
-    let jsonString = ''
-
-    response.on('data', dataChunk => {
-      jsonString += dataChunk
-    })
-
-    response.on('end', () => {
-      storeToken(jsonString)
-    })
-  }
-
-  const errorHandler = (error) => {
-    console.error('ERROR TOKEN:', error)
-  }
-
-  const requestToken = https.request(headers, callback)
-  requestToken.on('error', errorHandler)
-  requestToken.write(credentials)
-  requestToken.end()
+  .catch(function (error) {
+    console.log(error)
+  })
 }
 
 module.exports = getPetFinderToken

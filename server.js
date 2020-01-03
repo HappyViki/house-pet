@@ -24,13 +24,10 @@ getPetFinderToken(updatePetfinderToken)
 setInterval(getPetFinderToken, aboutAnHourLong, updatePetfinderToken)
 
 app.get('/', (request, response) => {
-  let id = pets[0].id
-  let name = pets[0].name
-  let url = pets[0].url
-  response.render('index', { title: 'Home', id: id, name: name, url: url })
+  response.send(JSON.stringify(pets))
 })
 app.get('/dashboard', (request, response) => {
-  response.render('dashboard', { title: 'Dashboard', boopedPets: boopedPets })
+  response.send('dashboard')
 })
 app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
