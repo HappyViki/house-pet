@@ -4,6 +4,9 @@
 # testing
 testpets.json
 
+#frontend
+/build
+
 # backend
 database.json
 .env

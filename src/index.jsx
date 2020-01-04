@@ -1,4 +1,4 @@
-import Home from './home.jsx'
+import App from './App.jsx'
 
 const domContainer = document.querySelector('#root')
-ReactDOM.render(<Home />, domContainer)
+ReactDOM.render(<App />, domContainer)

@@ -4,6 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>React App</title>
+    <style>
+      .nav ul{
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+      }
+      .nav li{
+        margin: 16px;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -13,6 +23,7 @@
     <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
     <script src="bundle.js" charset="utf-8"></script>
   </body>
 </html>

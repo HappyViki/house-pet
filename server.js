@@ -23,14 +23,13 @@ app.use(express.static('public'))
 app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
 })
-app.get('/pets.json', (request, response) => {
+app.get('/api', (request, response) => {
   if (token) {
     const updatePets = (newPets) => {
       pets = newPets
-      response.send(pets)
+      response.send(JSON.stringify(pets))
     }
     getPetFinderAnimals(token, updatePets)
   }
-  response.sendFile('dashboard.js', {root: 'client' })
 })
 app.listen(port, () => { console.log(`Go to http://localhost:${port}/`) })
