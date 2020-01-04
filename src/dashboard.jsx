@@ -8,5 +8,4 @@ class Dashboard extends React.Component {
   }
 }
 
-const domContainer = document.querySelector('#root')
-ReactDOM.render(Dashboard, domContainer)
+export default Dashboard

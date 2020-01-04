@@ -1,6 +1,12 @@
+# dependencies
+/node_modules
+
+# testing
+testpets.json
+
+# backend
+database.json
 .env
 
-node_modules
-
-testpets.json
-database.json
+# misc
+.DS_Store

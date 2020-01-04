@@ -18,20 +18,10 @@ const updatePetfinderToken = (newToken) => {
 getPetFinderToken(updatePetfinderToken)
 setInterval(getPetFinderToken, aboutAnHourLong, updatePetfinderToken)
 
-app.get('/', (request, response) => {
-  response.sendFile('home.html', {root: 'client' })
-})
-app.get('/dashboard', (request, response) => {
-  response.sendFile('dashboard.html', {root: 'client' })
-})
+app.use(express.static('public'))
+
 app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
-})
-app.get('/index.js', (request, response) => {
-  response.sendFile('index.js', {root: 'client' })
-})
-app.get('/dashboard.js', (request, response) => {
-  response.sendFile('dashboard.js', {root: 'client' })
 })
 app.get('/pets.json', (request, response) => {
   if (token) {
