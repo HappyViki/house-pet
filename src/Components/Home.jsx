@@ -65,10 +65,14 @@ class Home extends React.Component {
 
   savePet () {
     const storage = window.localStorage
-    const newPetId = this.state.currentPetId
-    let myPets = storage.getItem('myPets') ? JSON.parse(storage.getItem('myPets')) : []
-    if (!myPets.includes(newPetId)) {
-      myPets.push(newPetId)
+    const newPetObject = {
+      id: this.state.currentPetId,
+      src: this.state.currentPicSrc,
+      distance: this.state.currentDistance
+    }
+    let myPets = storage.getItem('myPets') ? JSON.parse(storage.getItem('myPets')) : {}
+    if (!myPets[newPetObject.id]) {
+      myPets[newPetObject.id] = newPetObject
       console.log(myPets)
       myPets = JSON.stringify(myPets)
       storage.setItem('myPets', myPets)
