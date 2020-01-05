@@ -1,9 +1,9 @@
 const axios = require('axios')
 
-function getPetFinderAnimals (token, getPets, location = 'utah') {
+function getPetFinderAnimals (token, getPets, parameters = {}) {
   console.log('TOKEN USED')
 
-  const animalsUrl = 'https://api.petfinder.com/v2/animals'
+  const animalsUrl = 'https://api.petfinder.com/v2/animals?location=84104'
   const animalsConfig = {
     headers: {
       Authorization: ` Bearer ${token}`
