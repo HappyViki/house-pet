@@ -1,8 +1,10 @@
+import React from 'react'
+
 class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      pets: {},
+      pets: null,
       currentPet: 0,
       current: {
         id: 0,
@@ -55,18 +57,20 @@ class Home extends React.Component {
   }
 
   setPet (currentPet) {
-    let newSrc = '#'
-    if (this.state.pets[currentPet].photos.length > 0) {
-      newSrc = this.state.pets[currentPet].photos[0].medium
-    }
-    this.setState({
-      current: {
-        id: this.state.pets[currentPet].id,
-        src: newSrc,
-        distance: this.state.pets[currentPet].distance,
-        url: this.state.pets[currentPet].url
+    if (this.state.pets !== null && this.state.pets !== undefined) {
+      let newSrc = '#'
+      if (this.state.pets[currentPet].photos.length > 0) {
+        newSrc = this.state.pets[currentPet].photos[0].medium
       }
-    })
+      this.setState({
+        current: {
+          id: this.state.pets[currentPet].id,
+          src: newSrc,
+          distance: this.state.pets[currentPet].distance,
+          url: this.state.pets[currentPet].url
+        }
+      })
+    }
   }
 
   savePet () {

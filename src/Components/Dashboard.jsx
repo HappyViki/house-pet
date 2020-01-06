@@ -1,3 +1,4 @@
+import React from 'react'
 import Card from './Card.jsx'
 
 class Dashboard extends React.Component {
@@ -7,17 +8,19 @@ class Dashboard extends React.Component {
     let myPets = window.localStorage.getItem('myPets')
     if (myPets !== null) {
       myPets = Object.values(JSON.parse(myPets))
-      this.state = {
-        myPets: myPets
-      }
+    }
+
+    this.state = {
+      myPets: myPets
     }
   }
 
   listSavedPets () {
-    console.log(this.state.myPets)
-    return this.state.myPets.map((pet, index) => {
-      return <Card key={index} id={pet.id} src={pet.src} distance={pet.distance} url={pet.url} />
-    })
+    if (this.state.myPets !== null) {
+      return this.state.myPets.map((pet, index) => {
+        return <Card key={index} id={pet.id} src={pet.src} distance={pet.distance} url={pet.url} />
+      })
+    }
   }
 
   render () {

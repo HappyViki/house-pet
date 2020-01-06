@@ -3,10 +3,10 @@
 
 # testing
 testpets.json
-bundle.js
 
 #frontend
 /build
+bundle.js
 
 # backend
 database.json

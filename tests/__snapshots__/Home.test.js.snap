@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="home"
+>
+  <img
+    className="pic"
+    src="#"
+  />
+  <div
+    className="info"
+  >
+    <b>
+      Distance from your location:
+    </b>
+    <br />
+    Location wasn't provided.
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    Noop
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    Boop
+  </button>
+  <div>
+    <b>
+      Dev Tools:
+    </b>
+    <button
+      onClick={[Function]}
+    >
+      Fetch Pets
+    </button>
+    <button
+      onClick={[Function]}
+    >
+      Clear Cache
+    </button>
+  </div>
+</div>
+`;

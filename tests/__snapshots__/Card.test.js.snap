@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="card"
+>
+  <img
+    src="image.png"
+  />
+  <p>
+    Distance: 
+    6.254
+     miles away
+  </p>
+  <a
+    href="website.com"
+  >
+    Go to pet on Petfinder.com
+  </a>
+</div>
+`;
