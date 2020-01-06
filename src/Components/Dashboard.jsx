@@ -1,23 +1,30 @@
+import Card from './Card.jsx'
+
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
 
     let myPets = window.localStorage.getItem('myPets')
     if (myPets !== null) {
-      myPets = JSON.parse(myPets)
+      myPets = Object.values(JSON.parse(myPets))
       this.state = {
         myPets: myPets
       }
     }
   }
 
+  listSavedPets () {
+    console.log(this.state.myPets)
+    return this.state.myPets.map((pet, index) => {
+      return <Card key={index} id={pet.id} src={pet.src} distance={pet.distance} url={pet.url} />
+    })
+  }
+
   render () {
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
-        {this.state.myPets.map((petId) => {
-          return <div key={petId}>{petId}</div>
-        })}
+        {this.listSavedPets()}
       </div>
     )
   }

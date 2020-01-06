@@ -3,10 +3,13 @@ class Home extends React.Component {
     super(props)
     this.state = {
       pets: {},
-      currentPetNum: 0,
-      currentPetId: 0,
-      currentPicSrc: '#',
-      currentDistance: null
+      currentPet: 0,
+      current: {
+        id: 0,
+        src: '#',
+        distance: null,
+        url: ''
+      }
     }
   }
 
@@ -19,7 +22,7 @@ class Home extends React.Component {
       pets = JSON.parse(pets)
       console.log('Loaded old pets', pets)
     }
-    this.setState({ 'pets': pets }, () => {
+    this.setState({ pets: pets }, () => {
       this.setPet(0)
     })
   }
@@ -43,57 +46,61 @@ class Home extends React.Component {
 
   nextPet () {
     console.log('Next pet!')
-    let newcurrentPetNum = this.state.currentPetNum + 1
-    if (newcurrentPetNum > this.state.pets.length - 1) {
-      newcurrentPetNum = 0
+    let newCurrentPet = this.state.currentPet + 1
+    if (newCurrentPet > this.state.pets.length - 1) {
+      newCurrentPet = 0
     }
-    this.setState({ currentPetNum: newcurrentPetNum })
-    this.setPet(newcurrentPetNum)
+    this.setState({ currentPet: newCurrentPet })
+    this.setPet(newCurrentPet)
   }
 
-  setPet (currentPetNum) {
-    let currentPicSrc = '#'
-    if (this.state.pets[currentPetNum].photos.length > 0) {
-      currentPicSrc = this.state.pets[currentPetNum].photos[0].medium
+  setPet (currentPet) {
+    let newSrc = '#'
+    if (this.state.pets[currentPet].photos.length > 0) {
+      newSrc = this.state.pets[currentPet].photos[0].medium
     }
     this.setState({
-      currentPetId: this.state.pets[currentPetNum].id,
-      currentPicSrc: currentPicSrc,
-      currentDistance: this.state.pets[currentPetNum].distance
-    })
+      current: {
+        id: this.state.pets[currentPet].id,
+        src: newSrc,
+        distance: this.state.pets[currentPet].distance,
+        url: this.state.pets[currentPet].url
+      }})
   }
 
   savePet () {
     const storage = window.localStorage
     const newPetObject = {
-      id: this.state.currentPetId,
-      src: this.state.currentPicSrc,
-      distance: this.state.currentDistance
+      id: this.state.current.id,
+      src: this.state.current.src,
+      distance: this.state.current.distance,
+      url: this.state.current.url
     }
+    console.log('savePet', newPetObject)
     let myPets = storage.getItem('myPets') ? JSON.parse(storage.getItem('myPets')) : {}
     if (!myPets[newPetObject.id]) {
       myPets[newPetObject.id] = newPetObject
-      console.log(myPets)
       myPets = JSON.stringify(myPets)
       storage.setItem('myPets', myPets)
     }
     // window.localStorage.getItem('myPets')
   }
 
-  clearPets () {
+  clearCache () {
+    window.localStorage.removeItem('pets')
     window.localStorage.removeItem('myPets')
     console.log('No more saved pets :(')
   }
 
   render () {
     let distanceMessage = "Location wasn't provided."
-    if (this.state.currentDistance !== null) {
-      distanceMessage = `You are ${this.state.currentDistance} miles away from this pet.`
+    if (this.state.current.distance !== null) {
+      distanceMessage = `You are ${this.state.current.distance} miles away from this pet.`
     }
 
     return (
       <div className='home'>
-        <img className='pic' src={this.state.currentPicSrc} />
+        <img className='pic' src={this.state.current.src} />
         <div className='info'>
           <b>Distance from your location:</b><br />
           {distanceMessage}
@@ -109,8 +116,8 @@ class Home extends React.Component {
           <button onClick={() => this.fetchPets()}>
             Fetch Pets
           </button>
-          <button onClick={() => this.clearPets()}>
-            Clear Boops
+          <button onClick={() => this.clearCache()}>
+            Clear Cache
           </button>
         </div>
       </div>
