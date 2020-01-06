@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "start-better": "webpack && node server.js",
-    "test": "standard --fix",
+    "test": "jest",
+    "lint":"standard --fix || exit 0",
     "bundle": "webpack"
   },
   "author": "",
@@ -18,11 +19,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-preset-react-app": "^3.1.2",
+    "babel-jest": "^24.9.0",
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.0-beta.0",
+    "jest": "^24.9.0",
     "standard": "^14.3.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"

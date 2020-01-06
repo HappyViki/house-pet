@@ -12,14 +12,14 @@ function getPetFinderToken (getToken) {
   }
 
   axios.post(tokenUrl, tokenConfig)
-  .then(function (response) {
-    let newToken = response.data.access_token
-    getToken(newToken)
-    console.log('NEW TOKEN', response.status)
-  })
-  .catch(function (error) {
-    console.log(error)
-  })
+    .then(function (response) {
+      const newToken = response.data.access_token
+      getToken(newToken)
+      console.log('NEW TOKEN', response.status)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 
 module.exports = getPetFinderToken

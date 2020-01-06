@@ -29,19 +29,19 @@ class Home extends React.Component {
 
   fetchPets () {
     fetch('/api')
-    .then(response => {
-      return response.json()
-    })
-    .then(json => {
-      const petsWithPics = json.filter((pet) => {
-        if (pet.photos.length > 0) {
-          return pet
-        }
+      .then(response => {
+        return response.json()
       })
-      const pets = JSON.stringify(petsWithPics)
-      window.localStorage.setItem('pets', pets)
-      return petsWithPics
-    })
+      .then(json => {
+        const petsWithPics = json.filter((pet) => {
+          if (pet.photos.length > 0) {
+            return pet
+          }
+        })
+        const pets = JSON.stringify(petsWithPics)
+        window.localStorage.setItem('pets', pets)
+        return petsWithPics
+      })
   }
 
   nextPet () {
@@ -65,7 +65,8 @@ class Home extends React.Component {
         src: newSrc,
         distance: this.state.pets[currentPet].distance,
         url: this.state.pets[currentPet].url
-      }})
+      }
+    })
   }
 
   savePet () {

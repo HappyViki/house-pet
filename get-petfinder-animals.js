@@ -11,19 +11,19 @@ function getPetFinderAnimals (token, getPets, parameters = {}) {
   }
 
   axios.get(animalsUrl, animalsConfig)
-  .then(function (response) {
-    let newPets = response.data.animals
+    .then(function (response) {
+      const newPets = response.data.animals
 
-    if (newPets) {
-      getPets(newPets)
-      console.log(`Got ${newPets.length} animals!`)
-    } else {
-      console.error('No pets found, might be an error')
-    }
-  })
-  .catch(function (error) {
-    console.log(error)
-  })
+      if (newPets) {
+        getPets(newPets)
+        console.log(`Got ${newPets.length} animals!`)
+      } else {
+        console.error('No pets found, might be an error')
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 
 module.exports = getPetFinderAnimals

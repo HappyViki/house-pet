@@ -7,7 +7,7 @@ const queries = require('./queries.js')
 const app = express().set('view engine', 'pug')
 const port = 8080
 let token, pets
-let boopedPets = queries.getBoops(0)
+const boopedPets = queries.getBoops(0)
 
 const aboutAnHourLong = (60 * 60 * 1000) - 10000
 

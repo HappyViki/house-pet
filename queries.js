@@ -1,6 +1,6 @@
 const JsonDB = require('node-json-db').JsonDB
 const Config = require('node-json-db/dist/lib/JsonDBConfig').Config
-let db = new JsonDB(new Config('database-mock', true, false, '/'))
+const db = new JsonDB(new Config('database-mock', true, false, '/'))
 
 module.exports.db = db
 

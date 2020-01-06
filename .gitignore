@@ -3,6 +3,7 @@
 
 # testing
 testpets.json
+bundle.js
 
 #frontend
 /build
