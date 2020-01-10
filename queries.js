@@ -22,12 +22,25 @@ module.exports.boop = function (petfinderId, userId) {
   console.log('BOOP', db.getData('/users/userId/pets[-1]'))
 }
 
+module.exports.createUser = function (userId, password) {
+  db.push(`/users`, [{
+    userId: userId, // id of pet from petfinder
+    password: password // id of user from user table, index key
+  }], false)
+  console.log('BOOP', db.getData('/users/userId/pets[-1]'))
+}
+
 // Function getBoops(userId)
 // Description: get array of objects containing pets
 
 module.exports.getBoops = function (userId) {
   console.log('BOOPS', db.getData('/users/userId/pets'))
   return db.getData('/users/userId/pets')
+}
+
+module.exports.getUser = function (userId) {
+  console.log('BOOPS', db.getData('/users/' + userId))
+  return db.getData(`/users/${userId}/password`)
 }
 
 // Function unboop(petId, userId)
