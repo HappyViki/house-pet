@@ -18,7 +18,13 @@ function getPetFinderToken (getToken) {
       console.log('NEW TOKEN', response.status)
     })
     .catch(function (error) {
-      console.log(error)
+      if (error.response) {
+        console.log(`ERROR Code: ${error.response.status}`)
+        console.log(`ERROR Message: axios getPetFinderToken post ${error.response.statusText}`)
+        getToken(error.response.statusText)
+      } else {
+        console.log(`ERROR Code: ${error.code}. Are you offline?`)
+      }
     })
 }
 

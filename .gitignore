@@ -1,9 +1,6 @@
 # dependencies
 /node_modules
 
-# testing
-testpets.json
-
 #frontend
 /build
 bundle.js

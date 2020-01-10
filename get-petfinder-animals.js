@@ -22,7 +22,9 @@ function getPetFinderAnimals (token, getPets, parameters = {}) {
       }
     })
     .catch(function (error) {
-      console.log(error)
+      console.log(`ERROR: ${error.response.status} ${error.response.statusText}`)
+      console.log('Check if your token is valid')
+      getPets(error.response.statusText)
     })
 }
 
