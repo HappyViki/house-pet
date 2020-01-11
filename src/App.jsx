@@ -1,13 +1,11 @@
+import React from 'react'
+import { HashRouter, Route, Link, Switch } from 'react-router-dom'
 import Home from './Components/Home.jsx'
 import Dashboard from './Components/Dashboard.jsx'
 
 export default function App () {
-  const Router = window.ReactRouterDOM.HashRouter
-  const Link = window.ReactRouterDOM.Link
-  const Switch = window.ReactRouterDOM.Switch
-  const Route = window.ReactRouterDOM.Route
   return (
-    <Router>
+    <HashRouter>
       <div>
         <nav className='nav'>
           <ul>
@@ -25,8 +23,8 @@ export default function App () {
 
         <Switch>
           <Route path='/' component={Home} exact />
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/settings'>
+          <Route path='/dashboard' component={Dashboard} exact />
+          <Route path='/settings' exact>
             <h1>Settings</h1>
             <form method='post' action='/hello/'>
               <input name='username' type='text' />
@@ -39,6 +37,6 @@ export default function App () {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   )
 }

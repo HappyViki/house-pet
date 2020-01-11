@@ -2,6 +2,10 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    historyApiFallback: true
+  },
   entry: {
     app: './src/index.jsx'
   },
@@ -15,7 +19,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, '/public'),
+    path: path.join(__dirname, 'public'),
     publicPath: '/',
     filename: 'bundle.js'
   }

@@ -4,49 +4,38 @@ const db = new JsonDB(new Config('database-mock', true, false, '/'))
 
 module.exports.db = db
 
-// have 2 users
+// INSERT
 
-// Function boop(petfinderId, userId)
-// Description: add pet to list with user foreign key
-// Example:
-// "3": { // unique primary key
-//   "petfinderid": 222, // id of pet from petfinder
-//   "userid": 1, // id of user from user table, index key
-// }
-
-module.exports.boop = function (petfinderId, userId) {
-  db.push('/users/userId/pets', [{
-    petfinderid: petfinderId, // id of pet from petfinder
-    userid: userId // id of user from user table, index key
-  }], false)
-  console.log('BOOP', db.getData('/users/userId/pets[-1]'))
+module.exports.savePet = function (petfinderId, username) {
+  db.push(`/users/${username}/savedPets`, petfinderId, false)
+  console.log(`${username}'s saved pets:`, db.getData(`/users/${username}/savedPets[-1]`))
+}
+module.exports.createUser = function (username, password) {
+  db.push(`/users/${username}`, {
+    username: username,
+    password: password,
+    savedPets: []
+  }, false)
+  console.log(`User ${username} created:`, db.getData(`/users/${username}`))
 }
 
-module.exports.createUser = function (userId, password) {
-  db.push(`/users`, [{
-    userId: userId, // id of pet from petfinder
-    password: password // id of user from user table, index key
-  }], false)
-  console.log('BOOP', db.getData('/users/userId/pets[-1]'))
+// SELECT
+
+module.exports.getSavedPets = function (username) {
+  console.log(`${username}'s saved pets:`, db.getData(`/users/${username}/savedPets`))
+  return db.getData(`/users/${username}/savedPets`)
 }
 
-// Function getBoops(userId)
-// Description: get array of objects containing pets
-
-module.exports.getBoops = function (userId) {
-  console.log('BOOPS', db.getData('/users/userId/pets'))
-  return db.getData('/users/userId/pets')
+module.exports.validateUserPassword = function (username, password) {
+  const correctPassword = db.getData(`/users/${username}/password`)
+  const passwordMatches = correctPassword === password
+  console.log(`${username}'s password is valid:`, passwordMatches)
+  return passwordMatches
 }
 
-module.exports.getUser = function (userId) {
-  console.log('BOOPS', db.getData('/users/' + userId))
-  return db.getData(`/users/${userId}/password`)
-}
+// DROP
 
-// Function unboop(petId, userId)
-// Description: delete selected pet
-
-module.exports.unboop = function (petId, userId) {
-  console.log('UNBOOP', db.getData(`/users/userId/pets[${petId}]`))
-  db.delete(`/users/userId/pets[${petId}]`)
+module.exports.deleteSavedPet = function (petfinderId, username) {
+  console.log(`Delete pet #${petfinderId} from ${username}'s saved pets`)
+  db.delete(`/users/${username}/savedPets/petfinderId`)
 }
