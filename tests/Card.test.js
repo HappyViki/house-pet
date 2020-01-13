@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from '../src/Components/Card.jsx'
+import Card from 'Components/Card.jsx'
 import renderer from 'react-test-renderer'
 
 it('renders correctly', () => {

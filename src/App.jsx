@@ -2,6 +2,7 @@ import React from 'react'
 import { HashRouter, Route, Link, Switch } from 'react-router-dom'
 import Home from './Components/Home.jsx'
 import Dashboard from './Components/Dashboard.jsx'
+import Login from './Components/Login.jsx'
 
 export default function App () {
   return (
@@ -16,7 +17,7 @@ export default function App () {
               <Link to='/dashboard'>Dashboard</Link>
             </li>
             <li>
-              <Link to='/settings'>Settings</Link>
+              <Link to='/login'>login</Link>
             </li>
           </ul>
         </nav>
@@ -24,14 +25,7 @@ export default function App () {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/dashboard' component={Dashboard} exact />
-          <Route path='/settings' exact>
-            <h1>Settings</h1>
-            <form method='post' action='/hello/'>
-              <input name='username' type='text' />
-              <input name='password' type='text' />
-              <input value='submit' type='submit' />
-            </form>
-          </Route>
+          <Route path='/login' component={Login} exact />
           <Route>
             <h1>404</h1>
           </Route>

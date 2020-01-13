@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const bodyParser = require('body-parser')
 const getPetFinderToken = require('./get-petfinder-token.js')
 const getPetFinderAnimals = require('./get-petfinder-animals.js')
 const queries = require('./queries.js')
@@ -19,6 +20,7 @@ getPetFinderToken(updatePetfinderToken)
 setInterval(getPetFinderToken, aboutAnHourLong, updatePetfinderToken)
 
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
@@ -34,5 +36,10 @@ app.get('/api', (request, response) => {
     }
     getPetFinderAnimals(token, updatePets)
   }
+})
+app.post('/validate-user', (request, response) => {
+  console.log('cat')
+  console.log('Validating User:', request.body.username, request.body.password)
+  response.send('true')
 })
 app.listen(port, () => { console.log(`Go to http://localhost:${port}/`) })
