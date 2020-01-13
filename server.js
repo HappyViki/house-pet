@@ -5,7 +5,7 @@ const getPetFinderToken = require('./get-petfinder-token.js')
 const getPetFinderAnimals = require('./get-petfinder-animals.js')
 const queries = require('./queries.js')
 
-const app = express().set('view engine', 'pug')
+const app = express()
 const port = 8080
 let token, pets
 const boopedPets = queries.getSavedPets('iAmAUser')
@@ -37,9 +37,17 @@ app.get('/api', (request, response) => {
     getPetFinderAnimals(token, updatePets)
   }
 })
-app.post('/validate-user', (request, response) => {
-  console.log('cat')
-  console.log('Validating User:', request.body.username, request.body.password)
-  response.send('true')
+app.post('/validate', (request, response) => {
+  console.log('Validating User:', request.body.username, request.body.password, request.body.register)
+  if ((request.body.username !== '' && request.body.password !== '') && request.body.register) {
+    if (queries.validateUserPassword(request.body.username, request.body.password)) {
+      console.log('user exists')
+    } else {
+      queries.createUser(request.body.username, request.body.password)
+    }
+  } else {
+    queries.validateUserPassword(request.body.username, request.body.password)
+  }
+  response.redirect('/')
 })
 app.listen(port, () => { console.log(`Go to http://localhost:${port}/`) })
