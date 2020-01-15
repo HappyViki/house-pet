@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
   render () {
     return (
       <div className='dashboard'>
-        <h1>Dashboard</h1>
+        <h1 className='heading'>Dashboard</h1>
         {this.listSavedPets()}
       </div>
     )

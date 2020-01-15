@@ -1,13 +1,8 @@
 # dependencies
 /node_modules
 
-#frontend
+# misc
+.env
+.DS_Store
 /build
 bundle.js
-
-# backend
-database.json
-.env
-
-# misc
-.DS_Store

@@ -1,6 +1,6 @@
 {
-  "name": "petfinderapp",
-  "version": "1.0.0",
+  "name": "house-pet",
+  "version": "2.0.0",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,8 +14,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "node-json-db": "^1.0.3"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -91,12 +91,6 @@ class Home extends React.Component {
     // window.localStorage.getItem('myPets')
   }
 
-  clearCache () {
-    window.localStorage.removeItem('pets')
-    window.localStorage.removeItem('myPets')
-    console.log('No more saved pets :(')
-  }
-
   render () {
     let distanceMessage = "Location wasn't provided."
     if (this.state.current.distance !== null) {
@@ -110,21 +104,12 @@ class Home extends React.Component {
           <b>Distance from your location:</b><br />
           {distanceMessage}
         </div>
-        <button onClick={() => this.nextPet()}>
+        <button className='button' onClick={() => this.nextPet()}>
           Noop
         </button>
-        <button onClick={() => this.savePet()}>
+        <button className='button' onClick={() => this.savePet()}>
           Boop
         </button>
-        <div>
-          <b>Dev Tools:</b>
-          <button onClick={() => this.fetchPets()}>
-            Fetch Pets
-          </button>
-          <button onClick={() => this.clearCache()}>
-            Clear Cache
-          </button>
-        </div>
       </div>
     )
   }
