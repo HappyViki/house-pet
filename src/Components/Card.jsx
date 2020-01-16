@@ -1,13 +1,21 @@
 import React from 'react'
 
 function Card (props) {
-  console.log('Card', props)
   return (
-    <section className='section'>
-      <img src={props.src} />
-      <p>Distance: {props.distance} miles away</p>
-      <a href={props.url}>Go to pet on Petfinder.com</a>
-    </section>
+    <div className='card'>
+      <figure className='image image-container'>
+        <img src={props.src} />
+      </figure>
+      <div className='content'>
+      Distance: {props.distance} miles away<br />
+        <a href={props.url}>Go to pet on Petfinder.com</a>
+      </div>
+      <div className='buttons'>
+        <button className='button is-danger' onClick={props.deletePet}>
+          unBoop
+        </button>
+      </div>
+    </div>
   )
 }
 

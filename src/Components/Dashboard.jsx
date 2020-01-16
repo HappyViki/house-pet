@@ -11,23 +11,37 @@ class Dashboard extends React.Component {
     }
 
     this.state = {
-      myPets: myPets
+      myPets: myPets,
+      stuff: ''
     }
+  }
+
+  deletePet (petId) {
+    const storage = window.localStorage
+    let myPets = JSON.parse(storage.getItem('myPets'))
+    console.log('myPets', myPets)
+    delete myPets[petId]
+    this.setState({myPets: myPets})
+    myPets = JSON.stringify(myPets)
+    storage.setItem('myPets', myPets)
   }
 
   listSavedPets () {
     if (this.state.myPets !== null) {
       return this.state.myPets.map((pet, index) => {
-        return <Card key={index} id={pet.id} src={pet.src} distance={pet.distance} url={pet.url} />
+        return <Card key={index} deletePet={() => this.deletePet(pet.id)} id={pet.id} src={pet.src} distance={pet.distance} url={pet.url} />
       })
     }
+  }
+  componentDidMount () {
+    let stuff = this.listSavedPets()
+    this.setState({stuff: stuff})
   }
 
   render () {
     return (
-      <div className='dashboard'>
-        <h1 className='heading'>Dashboard</h1>
-        {this.listSavedPets()}
+      <div className='page'>
+        {this.state.stuff}
       </div>
     )
   }

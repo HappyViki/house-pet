@@ -94,22 +94,25 @@ class Home extends React.Component {
   render () {
     let distanceMessage = "Location wasn't provided."
     if (this.state.current.distance !== null) {
-      distanceMessage = `You are ${this.state.current.distance} miles away from this pet.`
+      distanceMessage = `You are ${this.state.current.distance} miles away!`
     }
 
     return (
-      <div className='home'>
-        <img className='pic' src={this.state.current.src} />
-        <div className='info'>
-          <b>Distance from your location:</b><br />
+      <div className='card'>
+        <figure className='image image-container'>
+          <img src={this.state.current.src} />
+        </figure>
+        <div className='content'>
           {distanceMessage}
         </div>
-        <button className='button' onClick={() => this.nextPet()}>
-          Noop
-        </button>
-        <button className='button' onClick={() => this.savePet()}>
-          Boop
-        </button>
+        <div className='buttons'>
+          <button className='button is-warning' onClick={() => this.nextPet()}>
+            Noop
+          </button>
+          <button className='button is-success' onClick={() => this.savePet()}>
+            Boop
+          </button>
+        </div>
       </div>
     )
   }
