@@ -24,6 +24,7 @@ app.get('/favicon.ico', (request, response) => {
   response.status(204).send('Go away favicon request!')
 })
 app.get('/api', (request, response) => {
+  let params
   if (token === 'Unauthorized') {
     pets = require('./src/petfinderpets.json').animals
     response.send(JSON.stringify(pets))
@@ -32,7 +33,10 @@ app.get('/api', (request, response) => {
       pets = newPets
       response.send(JSON.stringify(pets))
     }
-    getPetFinderAnimals(token, updatePets)
+    if (request._parsedUrl.search !== null) {
+      params = request._parsedUrl.search
+    }
+    getPetFinderAnimals(token, updatePets, params)
   }
 })
 app.listen(port, () => { console.log(`Go to http://localhost:${port}/`) })

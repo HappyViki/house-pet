@@ -4,6 +4,7 @@ class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      location: '',
       pets: null,
       currentPet: 0,
       current: {
@@ -13,24 +14,22 @@ class Home extends React.Component {
         url: ''
       }
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount () {
-    let pets = window.localStorage.getItem('pets')
-    if (pets === null) {
-      pets = this.fetchPets()
-      console.log('Loaded new pets', pets)
-    } else {
-      pets = JSON.parse(pets)
-      console.log('Loaded old pets', pets)
-    }
-    this.setState({ pets: pets }, () => {
-      this.setPet(0)
-    })
+    this.fetchPets()
   }
 
   fetchPets () {
-    fetch('/api')
+    let params = ''
+    console.log("state location", this.state.location);
+    if (this.state.location != '') {
+      params = '?location='+this.state.location
+    }
+    return fetch('/api'+params)
       .then(response => {
         return response.json()
       })
@@ -43,7 +42,12 @@ class Home extends React.Component {
         const pets = JSON.stringify(petsWithPics)
         window.localStorage.setItem('pets', pets)
         return petsWithPics
-      })
+      }).then( pets =>
+        this.setState({ pets: pets }, () => {
+          console.log('Loaded new pets', pets)
+          this.setPet(0)
+        })
+      )
   }
 
   nextPet () {
@@ -91,6 +95,15 @@ class Home extends React.Component {
     // window.localStorage.getItem('myPets')
   }
 
+  handleChange(event) {
+    this.setState({location: event.target.value});
+  }
+
+  handleSubmit(event) {
+    this.fetchPets()
+    event.preventDefault();
+  }
+
   render () {
     let distanceMessage = "Location wasn't provided."
     if (this.state.current.distance !== null) {
@@ -98,6 +111,12 @@ class Home extends React.Component {
     }
 
     return (
+      <>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" value={this.state.location} onChange={this.handleChange} placeholder="ZIP Code" />
+        <input type="submit" value="Locate" />
+      </form>
+      <br/>
       <div className='card'>
         <figure className='image image-container'>
           <img src={this.state.current.src} />
@@ -114,6 +133,7 @@ class Home extends React.Component {
           </button>
         </div>
       </div>
+      </>
     )
   }
 }
