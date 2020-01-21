@@ -25,6 +25,10 @@ app.get('/favicon.ico', (request, response) => {
 })
 app.get('/api', (request, response) => {
   let params
+  if (request._parsedUrl.search !== null) {
+    params = request._parsedUrl.search
+  }
+  console.log('params', params)
   if (token === 'Unauthorized') {
     pets = require('./src/petfinderpets.json').animals
     response.send(JSON.stringify(pets))
@@ -32,9 +36,6 @@ app.get('/api', (request, response) => {
     const updatePets = (newPets) => {
       pets = newPets
       response.send(JSON.stringify(pets))
-    }
-    if (request._parsedUrl.search !== null) {
-      params = request._parsedUrl.search
     }
     getPetFinderAnimals(token, updatePets, params)
   }

@@ -25,7 +25,8 @@ function getPetFinderAnimals (token, getPets, params = '') {
     .catch(function (error) {
       console.log(`ERROR: ${error.response.status} ${error.response.statusText}`)
       console.log('Check if your token is valid')
-      getPets(error.response.statusText)
+      const errorMessage = {error: error.response.statusText}
+      getPets(errorMessage)
     })
 }
 

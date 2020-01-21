@@ -34,20 +34,25 @@ class Home extends React.Component {
         return response.json()
       })
       .then(json => {
-        const petsWithPics = json.filter((pet) => {
-          if (pet.photos.length > 0) {
-            return pet
-          }
-        })
-        const pets = JSON.stringify(petsWithPics)
-        window.localStorage.setItem('pets', pets)
-        return petsWithPics
+        if (!json.error){
+          const petsWithPics = json.filter((pet) => {
+            if (pet.photos.length > 0) {
+              return pet
+            }
+          })
+          const pets = JSON.stringify(petsWithPics)
+          window.localStorage.setItem('pets', pets)
+          return petsWithPics
+        } else {
+          throw json.error
+        }
+        
       }).then( pets =>
         this.setState({ pets: pets }, () => {
           console.log('Loaded new pets', pets)
           this.setPet(0)
         })
-      )
+      ).catch(error=>console.log("Error:",error))
   }
 
   nextPet () {
@@ -113,8 +118,14 @@ class Home extends React.Component {
     return (
       <>
       <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.state.location} onChange={this.handleChange} placeholder="ZIP Code" />
-        <input type="submit" value="Locate" />
+      <div className="field has-addons">
+        <div className="control">
+          <input className="input" type="text" value={this.state.location} onChange={this.handleChange} placeholder="ZIP Code" />
+        </div>
+        <div className="control">
+          <input className="button is-info" type="submit" value="Locate" />
+        </div>
+      </div>
       </form>
       <br/>
       <div className='card'>
